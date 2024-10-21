@@ -26,7 +26,6 @@ const messageSchema = new mongoose.Schema({
     default: () => Date.now(),
   },
 });
-let i = 0;
 messageSchema.statics.addAndCheckMessage = async function (body, user) {
   try {
     const message = await this.create({

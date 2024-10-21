@@ -31,7 +31,7 @@ exports.login = async (req, res) => {
       httpOnly: true,
       maxAge,
     });
-    res.status(201).json({ id: user._id });
+    res.status(201).json(user);
   } catch (error) {
     console.log(error);
     res.status(400).json({ message: error.message });
