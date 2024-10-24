@@ -6,7 +6,7 @@ module.exports = {
   init: (server) => {
     io = new Server(server, {
       cors: {
-        origin: "http://localhost:3000",
+        origin: process.env.FRONT_END_URL,
         methods: ["GET", "POST"],
         allowedHeaders: ["Content-Type"],
         credentials: true,

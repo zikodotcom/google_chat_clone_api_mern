@@ -19,8 +19,8 @@ const jsonwebtoken = require("jsonwebtoken");
 // Move CORS middleware before your routes
 app.use(
   cors({
-    origin: "http://localhost:3000", // replace with your frontend URL
-    credentials: true, // allow cookies to be sent
+    origin: process.env.FRONT_END_URL,
+    credentials: true,
   })
 );
 // TODO Connect to mongodb
