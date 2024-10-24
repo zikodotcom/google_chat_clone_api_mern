@@ -1,5 +1,6 @@
 const User = require("../Models/User");
 const socket = require("../Services/Socket");
+const { handleError } = require("../Services/ValidationErrors");
 
 // ? User search
 
@@ -24,14 +25,17 @@ exports.searchUser = async (req, res) => {
     });
     res.json(data);
   } catch (error) {
-    console.log(error);
+    console.log(handleError(error));
     res.status(400).json(error);
   }
 };
 
 // ? change user status
 exports.changeUserStatus = (req, res) => {
-  const { id, status } = req.params;
+  let { id, status } = req.params;
+  if (id == "undefined") {
+    id = req.user;
+  }
   const io = socket.getIO();
   User.updateOne({ _id: id }, { status: status })
     .then((result) => {

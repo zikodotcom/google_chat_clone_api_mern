@@ -71,8 +71,15 @@ messageSchema.statics.addAndCheckMessage = async function (body, user) {
               .populate("friendOne")
               .populate("friendTwo")
               .populate("message");
-            io.in(body.receiver).emit("addNewFriend", newFriend);
-            io.in(user).emit("addNewFriend", newFriend);
+
+            io.in(body.receiver).emit("addNewFriend", {
+              friend: newFriend["friendOne"],
+              message: newFriend["message"],
+            });
+            io.in(user).emit("addNewFriend", {
+              friend: newFriend["friendTwo"],
+              message: newFriend["message"],
+            });
           });
         } else {
           io.in(body.receiver).emit("SendMessage", message);

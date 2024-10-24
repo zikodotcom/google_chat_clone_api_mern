@@ -44,4 +44,20 @@ exports.logout = (req, res) => {
   res.cookie("jwt", "", {
     maxAge: 1,
   });
+  res.status(200).json("Logout");
+};
+
+// ? Check if use logged it
+
+exports.checkLogIn = (req, res) => {
+  const token = req.cookies?.jwt;
+
+  // ? Check if token exists and verified
+  if (token) {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decodedToken) => {
+      if (!err) {
+        res.status(200).json({ message: "User logged it" });
+      }
+    });
+  }
 };
